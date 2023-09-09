@@ -1,0 +1,56 @@
+@model Proyecto2.Models.Profesor;
+@{
+    ViewData["Title"] = "Profesores";
+}
+<div class="modal fade" id="ModalProfesor" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header fondom">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Profesor</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fondom">
+                <input type="hidden" id="ProdesorId" value="0">
+                <div class="control-label">
+                    <p>Nombre y Apellido</p>
+                    <input type="text" class="form-control" id="Nombre" autocomplete="off">
+                    <p>DNI</p>
+                    <input type="num" class="form-control" id="DNI" autocomplete="off">
+                    <p>Fecha Nacimiento</p>
+                    <input asp-for="FechaNacimiento" class="form-control" />
+                    <p>Direccion</p>
+                    <input type="text" class="form-control" id="Direccion" autocomplete="off">
+                    <p>Email</p>
+                    <input type="email" class="form-control" id="Email" placeholder="<EMAIL>" autocomplete="off"/>
+                </div>
+                <div class="modal-footer" style="margin-right: 30%;">
+                    <button type="button" class="button-77" role="button" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" style="margin-left: 3%;" onclick="GuardarProfesor()" class="button-78" role="button">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Profesores</h1>
+<div>
+    <div class="mb-2">
+        <button type="button" onclick="VaciarFormulario()" class="button-89" role="button" data-bs-toggle="modal" data-bs-target="#ModalProfesor="">Crear</button>
+    </div>
+    <div>
+        <table class="table table-success table-info table-striped table-bordered"">
+            <thead>
+                <tr>
+                <th scope="col">Nombre y Apellido</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-profesor"></tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+<script src="~/js/Profesor.js"></script>
+}

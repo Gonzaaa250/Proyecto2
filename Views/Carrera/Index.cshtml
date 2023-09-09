@@ -1,0 +1,52 @@
+@model Proyecto2.Models.Carrera;
+@{
+    ViewData["Title"] = "Carreras";
+}
+<div class="modal fade" id="ModalCarrera" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header fondom">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Carreras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fondom">
+                <input type="hidden" id="CarreraId" value="0">
+                <div class="control-label">
+                    <p>Nombre</p>
+                    <input type="text" class="form-control" id="Nombre" autocomplete="off">
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                    <p>Duracion</p>
+                    <input type="number" class="form-control" id="Duracion" autocomplete="off">
+                </div>
+                <div class="modal-footer" style="margin-right: 30%;">
+                    <button type="button" class="button-77" role="button" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" style="margin-left: 3%;" onclick="GuardarCarrera()" class="button-78" role="button">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Carreras</h1>
+<div>
+    <div class="mb-2">
+        <button type="button" onclick="VaciarFormulario()" class="button-89" role="button" data-bs-toggle="modal"
+                data-bs-target="#ModalCarrera">Nuevo</button>
+    </div>
+    <div>
+        <table class="table table-success table-info table-striped table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Duracion</th>
+                <th scope="col" style="width: 30% !important">#</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-carrera"></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/carrera.js"></script>
+}
