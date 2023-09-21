@@ -23,7 +23,7 @@ public class ProfesorController : Controller
     }
     public IActionResult Index()
     {
-        // var profesores=_context.Profesor.ToList();
+        var profesores=_context.Profesor.ToList();
         return View();
     }
     public JsonResult BuscarProfesor( int ProfesorId = 0)
