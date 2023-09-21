@@ -10,7 +10,7 @@ function BuscarAlumno(){
             $.each(alumnos, function (Index, alumno){
                 var BotonEliminar= '';
                 var botones ='<button type="button" onclick="BuscarAlumnos(' + alumno.alumnoId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
-                    '<button type="button" onclick="EliminarAlumno(' + alumno.alumnoId  + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
+                '<button type="button" onclick="EliminarAlumno(' + alumno.alumnoId  + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
                 console.log(fechaFormateada);
                 var fechaNacimiento = new Date(alumno.fechanacimiento);
                 var fechaFormateada = fechaNacimiento.toLocaleDateString(); // Formatea la fecha
@@ -83,19 +83,21 @@ function GuardarAlumno(){
 }
 
 function EliminarAlumno(AlumnoId, Eliminar){
+    console.log("AlumnoId: ", AlumnoId, "Eliminar: ", Eliminar);
+
     $.ajax({
         url:"../../Alumno/EliminarAlumno",
         data: {AlumnoId: AlumnoId, Eliminar: Eliminar},
-        type: 'POST',
-        dataType: "json" ,
-        success: function(resultado){
+        type:'POST',
+        dataType : "json",
+        success: function (resultado) {
             if(resultado){
                 BuscarAlumno();
                 console.log("alumno eliminado");
             }
         },
-        error : function (xhr, status){
-            alert('no se pudo eliminar el alumno')
+        error: function (xhr, status){
+            alert('no se pudo eliminar al alumno')
         }
-    });
+    })
 }
