@@ -12,7 +12,7 @@ using System.Dynamic;
 using Proyecto2.Data;
 using Proyecto2.Models;
     namespace Proyecto2.Controllers;
-
+[Authorize]
     public class AlumnoController : Controller
     {
         private readonly ILogger<AlumnoController > _logger;

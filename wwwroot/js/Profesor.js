@@ -7,20 +7,22 @@ function BuscarProfesor(){
         datatype: 'json',
         success : function(profesores){
             $("#tbody-profesor").empty();
-            $.each(profesores, function(Index, profesores){
+            $.each(profesores, function(Index, profesor){
                 var BotonEliminar ="";
                 var botones = '<button type="button" onclick="BuscarProfesores(' + profesor.profesorId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
                 '<button type="button" onclick="GuardarProfesor(' + profesor.profesorId + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
+                var fechaNacimiento = new Date(alumno.fechanacimiento);
+                var fechaFormateada = fechaNacimiento.toLocaleDateString();
                 $("#tbody-profesor").append('<tr class="' + BotonEliminar + '</td>'
-                + '<td class="text-center lt"' + profesor.nombreP + '</td>'
+                + '<td class="text-center lt"' + profesor.nombre + '</td>'
                 + '<td class="text-center lt"' + profesor.dni + '</td>'
-                + '<td class="text-center lt"' + profesor.fechanacimiento + '</td>'
+                + '<td class="text-center lt"' +fechaFormateada + '</td>'
                 + '<td class="text-center lt"' + profesor.direccion + '</td>'
                 + '<td class="text-center lt"' + profesor.email + '</td>'
                 +'<td class="text-center">' + botones + '</td>'+'</tr>')
             });
         },
-        error : function (xhr, status){or
+        error : function (xhr, status){
             alert('Error al cargar el Profesor')
         },
     });
@@ -43,7 +45,7 @@ function BuscarProfesores(){
         success : function(profesores){
             if(profesores.length ==1){
                 let profesor = profesores[0];
-                $("#NombreP").val(profesor.nombreP);
+                $("#Nombre").val(profesor.nombre);
                 $("#ProfesorId").val(profesor.profesorId);
                 $("#DNI").val(profesor.dni);
                 $("#Direccion").val(profesor.direccion);
@@ -60,14 +62,14 @@ function BuscarProfesores(){
 //Guardar
 function GuardarProfesor(){
     let ProfesorId = $("#ProfesorID").val();
-    let NombreP = $("#NombreP").val();
+    let Nombre = $("#Nombre").val();
     let DNI = $("#DNI").val();
     let FechaNacimiento= $("#FechaNacimiento").val();
     let Email=$("#Email").val();
     let Direccion=$("#Direccion").val();
     $.ajax({
         url:'../../Profesor/GuardarProfesor',
-        data:{ ProfesorId: ProfesorId, NombreP: NombreP, DNI: DNI, FechaNacimiento: FechaNacimiento, Email: Email, Direccion: Direccion},
+        data:{ ProfesorId: ProfesorId, Nombre: Nombre, DNI: DNI, FechaNacimiento: FechaNacimiento, Email: Email, Direccion: Direccion},
         type: 'POST',
         datatype: 'json',
         success: function(resultado){

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PUSP8KpZ22f0Gi2RMEZX+n04T0kW2oUn7F9RcebFxTQ=",
+  "Hash": "tfP12IV3KQviXIlJSCARQL2UatIpw6ANqtyjoeapzhs=",
   "Source": "Proyecto2",
   "BasePath": "_content/Proyecto2",
   "Mode": "Default",
@@ -1139,12 +1139,12 @@
       "OriginalItemSpec": "wwwroot\\js\\carrera.js"
     },
     {
-      "Identity": "C:\\Users\\gonza\\Desktop\\Proyecto2\\wwwroot\\js\\Profesor.js",
+      "Identity": "C:\\Users\\gonza\\Desktop\\Proyecto2\\wwwroot\\js\\profesor.js",
       "SourceId": "Proyecto2",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gonza\\Desktop\\Proyecto2\\wwwroot\\",
       "BasePath": "_content/Proyecto2",
-      "RelativePath": "js/Profesor.js",
+      "RelativePath": "js/profesor.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1153,7 +1153,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Profesor.js"
+      "OriginalItemSpec": "wwwroot\\js\\profesor.js"
     },
     {
       "Identity": "C:\\Users\\gonza\\Desktop\\Proyecto2\\wwwroot\\js\\site.js",

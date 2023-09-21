@@ -33,7 +33,9 @@ public class CarreraController : Controller
         bool result = false;
         if (!string.IsNullOrEmpty(NombreC))
         {
-            var carreraExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC);
+            if(CarreraId ==0)
+            {
+                var carreraExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC);
             if (carreraExistente == null)
             {
                 var guardarcarrera = new Carrera
@@ -45,10 +47,11 @@ public class CarreraController : Controller
                 _context.SaveChanges();
                 result = true;
             }
+            }
             else
             {
-                var carrerasExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC && c.CarreraId != CarreraId);
-                if (carrerasExistente == null)
+                var carreraExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC && c.CarreraId != CarreraId);
+                if (carreraExistente == null)
                 {
                     var carreraeditar = _context.Carrera.Find(CarreraId);
 

@@ -4,7 +4,7 @@ namespace Proyecto2.Models;
 public class Profesor{
     [Key]
     public int ProfesorId {get; set;}
-    public string NombreP {get; set;}
+    public string Nombre {get; set;}
     public string DNI {get; set;}
     public DateTime FechaNacimiento {get; set;}
     public string Direccion {get; set;}
