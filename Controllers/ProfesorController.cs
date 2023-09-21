@@ -40,9 +40,9 @@ public JsonResult GuardarProfesor(int ProfesorId, string Nombre, string DNI, Dat
     bool result = false;
     if (!string.IsNullOrEmpty(Nombre) && !string.IsNullOrEmpty(DNI))
     {
-        var profesorExistente = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre);
         if (ProfesorId == 0)
         {
+            var profesorExistente = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre);
             if (profesorExistente == null)
             {
                 var guardarProfesor = new Profesor
@@ -60,8 +60,8 @@ public JsonResult GuardarProfesor(int ProfesorId, string Nombre, string DNI, Dat
         }
         else
         {
-            var profesorExistenteOtro = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre && p.ProfesorId != ProfesorId);
-            if (profesorExistenteOtro == null)
+            var profesorExistente = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre && p.ProfesorId != ProfesorId);
+            if (profesorExistente == null)
             {
                 var profesorEditar = _context.Profesor.Find(ProfesorId);
                 if (profesorEditar != null)
