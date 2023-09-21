@@ -11,7 +11,7 @@ function BuscarAlumno(){
                 var BotonEliminar= '';
                 var botones ='<button type="button" onclick="BuscarAlumnos(' + alumno.alumnoId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
                     '<button type="button" onclick="EliminarAlumno(' + alumno.alumnoId  + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
-                console.log(alumno);
+                console.log(fechaFormateada);
                 var fechaNacimiento = new Date(alumno.fechanacimiento);
                 var fechaFormateada = fechaNacimiento.toLocaleDateString(); // Formatea la fecha
                 $("#tbody-alumno").append('<tr class="' + BotonEliminar + '">' 
