@@ -13,14 +13,12 @@
             <div class="modal-body fondom">
                 <input type="hidden" id="AlumnoId" value="0">
                 <div class="control-label">
-                    <p>Nombre</p>
+                    <p>Nombre y Apellido</p>
                     <input name="Nombre" type="text" class="form-control" id="Nombre" autocomplete="off">
-                    <p>Apellido</p>
-                    <input type="text" class="form-control" id="Apellido" autocomplete="off">
                     <p>Fecha Nacimiento</p>
-                    <input type="num" class="form-control" id="FechaNacimiento" autocomplete="off">
+                    <input name="FechaNacimiento" type="num" class="form-control" id="FechaNacimiento" autocomplete="off">
                     <p>Carrera</p>
-                    @Html.DropDownList("ClubId", null, htmlAttributes: new { @class = "form-control borde"})
+                    @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control borde"})
                 </div>
                 <div class="modal-footer" style="margin-right: 30%;">
                     <button type="button" class="button-77" role="button" data-bs-dismiss="modal">Cerrar</button>

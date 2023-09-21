@@ -24,21 +24,21 @@ public class CarreraController : Controller
         var carrera = _context.Carrera.ToList();
         if (CarreraId > 0)
         {
-            carrera = carrera.Where(c => c.CarreraId == CarreraId).OrderBy(c => c.Nombre).ToList();
+            carrera = carrera.Where(c => c.CarreraId == CarreraId).OrderBy(c => c.NombreC).ToList();
         }
         return Json(carrera);
     }
-    public JsonResult GuardarCarrera(int CarreraId, string Nombre, int Duracion)
+    public JsonResult GuardarCarrera(int CarreraId, string NombreC, int Duracion)
     {
         bool result = false;
-        if (!string.IsNullOrEmpty(Nombre))
+        if (!string.IsNullOrEmpty(NombreC))
         {
-            var carreraExistente = _context.Carrera.FirstOrDefault(c => c.Nombre == Nombre);
+            var carreraExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC);
             if (carreraExistente == null)
             {
                 var guardarcarrera = new Carrera
                 {
-                    Nombre = Nombre,
+                    NombreC = NombreC,
                     Duracion = Duracion
                 };
                 _context.Add(guardarcarrera);
@@ -47,14 +47,14 @@ public class CarreraController : Controller
             }
             else
             {
-                var carrerasExistente = _context.Carrera.FirstOrDefault(c => c.Nombre == Nombre && c.CarreraId != CarreraId);
+                var carrerasExistente = _context.Carrera.FirstOrDefault(c => c.NombreC == NombreC && c.CarreraId != CarreraId);
                 if (carrerasExistente == null)
                 {
                     var carreraeditar = _context.Carrera.Find(CarreraId);
 
                     if (carreraeditar != null)
                     {
-                        carreraeditar.Nombre = Nombre;
+                        carreraeditar.NombreC = NombreC;
                         carreraeditar.Duracion = Duracion;
 
                         _context.SaveChanges();
@@ -66,7 +66,7 @@ public class CarreraController : Controller
         }
         return Json(result);
     }
-    public JsonResult ElimarCarrera(int CarreraId, int Eliminar)
+    public JsonResult EliminarCarrera(int CarreraId, int Eliminar)
     {
         int result = 0;
         var carrera = _context.Carrera.Find(CarreraId);

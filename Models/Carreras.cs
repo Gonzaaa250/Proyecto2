@@ -5,8 +5,9 @@ public class Carrera{
     [Key]
     public int CarreraId {get; set;}
     [Required(ErrorMessage = "El nombre es obligatorio")]
-    public string Nombre {get; set;}
+    public string NombreC {get; set;}
     [Required(ErrorMessage = "La duracion de la carrera es obligatori")]
     public int Duracion {get; set;}
     public bool Eliminar {get; set;}
+    public virtual ICollection <Alumno> Alumno {get; set;}
 }

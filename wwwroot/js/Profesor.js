@@ -12,7 +12,7 @@ function BuscarProfesor(){
                 var botones = '<button type="button" onclick="BuscarProfesores(' + profesor.profesorId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
                 '<button type="button" onclick="GuardarProfesor(' + profesor.profesorId + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
                 $("#tbody-profesor").append('<tr class="' + BotonEliminar + '</td>'
-                + '<td class="text-center lt"' + profesor.nombre + '</td>'
+                + '<td class="text-center lt"' + profesor.nombreP + '</td>'
                 + '<td class="text-center lt"' + profesor.dni + '</td>'
                 + '<td class="text-center lt"' + profesor.fechanacimiento + '</td>'
                 + '<td class="text-center lt"' + profesor.direccion + '</td>'
@@ -43,7 +43,7 @@ function BuscarProfesores(){
         success : function(profesores){
             if(profesores.length ==1){
                 let profesor = profesores[0];
-                $("#Nombre").val(profesor.nombre);
+                $("#NombreP").val(profesor.nombreP);
                 $("#ProfesorId").val(profesor.profesorId);
                 $("#DNI").val(profesor.dni);
                 $("#Direccion").val(profesor.direccion);
@@ -60,14 +60,14 @@ function BuscarProfesores(){
 //Guardar
 function GuardarProfesor(){
     let ProfesorId = $("#ProfesorID").val();
-    let Nombre = $("#Nombre").val();
+    let NombreP = $("#NombreP").val();
     let DNI = $("#DNI").val();
     let FechaNacimiento= $("#FechaNacimiento").val();
     let Email=$("#Email").val();
     let Direccion=$("#Direccion").val();
     $.ajax({
         url:'../../Profesor/GuardarProfesor',
-        data:{ ProfesorId: ProfesorId, Nombre: Nombre, DNI: DNI, FechaNacimiento: FechaNacimiento, Email: Email, Direccion: Direccion},
+        data:{ ProfesorId: ProfesorId, NombreP: NombreP, DNI: DNI, FechaNacimiento: FechaNacimiento, Email: Email, Direccion: Direccion},
         type: 'POST',
         datatype: 'json',
         success: function(resultado){

@@ -10,99 +10,99 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Proyecto2.Data;
 using Proyecto2.Models;
-namespace Proyecto2.Controllers;
+    namespace Proyecto2.Controllers;
 
-public class AlumnoController : Controller
-{
-    private readonly ILogger<AlumnoController > _logger;
-    public readonly ApplicationDbContext _context;
-    public AlumnoController (ILogger<AlumnoController > logger, ApplicationDbContext context)
+    public class AlumnoController : Controller
     {
-        _logger = logger;
-        _context = context;
-    }
-    public IActionResult Index()
-    {
-        var Carrera = _context.Carrera?.ToList();
-        ViewBag.ClubId = new SelectList(Carrera, "CarreraId", "Nombre");
-        return View();
-    }
-    public JsonResult BuscarAlumno(int AlumnoId = 0)
-    {
-        var alumno = _context.Alumno.ToList();
-        if (AlumnoId > 0)
+        private readonly ILogger<AlumnoController > _logger;
+        public readonly ApplicationDbContext _context;
+        public AlumnoController (ILogger<AlumnoController > logger, ApplicationDbContext context)
         {
-            alumno = alumno.Where(a => a.AlumnoId == AlumnoId).OrderBy(a => a.NombreA).ToList();
+            _logger = logger;
+            _context = context;
         }
-        return Json(alumno);
-    }
-    public JsonResult GuardarAlumno(int AlumnoId, string Nombre, string Apellido, DateTime FechaNacimiento, string Carrera)
-    {
-        bool result = false;
-        if (!string.IsNullOrEmpty(Nombre)&& !string.IsNullOrEmpty(Apellido))
+        public IActionResult Index()
         {
-            var alumnoExistente = _context.Alumno.FirstOrDefault(a => a.NombreA == Nombre);
-            if (alumnoExistente == null)
+            var Carrera = _context.Carrera?.ToList();
+            ViewBag.CarreraId = new SelectList(Carrera, "CarreraId", "NombreC");
+            return View();
+        }
+        public JsonResult BuscarAlumno(int AlumnoId = 0)
+        {
+            var alumno = _context.Alumno.ToList();
+            if (AlumnoId > 0)
             {
-                var guardaralumno = new Alumno
-                {
-                    NombreA = Nombre,
-                    Apellido= Apellido,
-                    FechaNacimiento = FechaNacimiento,
-                    // Carrera = Carrera
-                };
-                _context.Add(guardaralumno);
-                _context.SaveChanges();
-                result = true;
+                alumno = alumno.Where(a => a.AlumnoId == AlumnoId).OrderBy(a => a.Nombre).ToList();
             }
-            else
+            return Json(alumno);
+        }
+        public JsonResult GuardarAlumno(int AlumnoId, string Nombre, DateTime FechaNacimiento, int CarreraId)
+        {
+            bool result = false;
+            if(!string.IsNullOrEmpty(Nombre))
             {
-                var alumnosExistente = _context.Alumno.FirstOrDefault(a => a.NombreA == Nombre && a.AlumnoId != AlumnoId);
-                if (alumnosExistente == null)
+                if(AlumnoId ==0)
                 {
-                    var alumnoeditar = _context.Alumno.Find(AlumnoId);
-
-                    if (alumnoeditar != null)
+                    var alumnoExistente = _context.Alumno.FirstOrDefault(a=> a.Nombre == Nombre);
+                    if(alumnoExistente == null)
                     {
-                        alumnoeditar.NombreA = Nombre;
-                        alumnoeditar.Apellido = Apellido;
-                        alumnoeditar.FechaNacimiento = FechaNacimiento;
-                        // alumnoeditar.Carrera = Carrera;
-
+                        var carrera = _context.Carrera.FirstOrDefault(c => c.CarreraId == CarreraId); // Obtener la carrera por su ID
+                    if (carrera != null){
+                        var alumnoguardar = new Alumno
+                        {
+                            Nombre = Nombre,
+                            FechaNacimiento = FechaNacimiento,
+                            Carrera = carrera
+                        };
+                        _context.Add(alumnoguardar);
                         _context.SaveChanges();
                         result = true;
                     }
+                    }
                 }
-
+                else
+                {
+                    var alumnoExistente = _context.Alumno.FirstOrDefault(a=> a.Nombre == Nombre && a.AlumnoId != AlumnoId);
+                    if ( alumnoExistente ==null)
+                    {
+                        var actualizaralumno = _context.Alumno.Include(a=> a.CarreraId).FirstOrDefault(a=> a.AlumnoId == AlumnoId);
+                        if (actualizaralumno != null)
+                        {
+                            actualizaralumno.Nombre = Nombre;
+                            actualizaralumno.FechaNacimiento = FechaNacimiento;
+                            actualizaralumno.Carrera = _context.Carrera.FirstOrDefault(c=> c.CarreraId == CarreraId);
+                            _context.SaveChanges();
+                            result = true;
+                        }
+                    }
+                }
             }
         }
-        return Json(result);
-    }
-    public JsonResult ElimarAlumno(int AlumnoId, int Eliminar)
-    {
-        int result = 0;
-        var alumno = _context.Alumno.Find(AlumnoId);
-
-        if (alumno != null)
+        public JsonResult ElimarAlumno(int AlumnoId, int Eliminar)
         {
-            if (Eliminar == 0)
-            {
-                alumno.Eliminar = false;
-                _context.SaveChanges();
-            }
+            int result = 0;
+            var alumno = _context.Alumno.Find(AlumnoId);
 
-            else
+            if (alumno != null)
             {
-                if (Eliminar == 1)
+                if (Eliminar == 0)
                 {
-                    alumno.Eliminar = true;
-                    _context.Remove(alumno);
+                    alumno.Eliminar = false;
                     _context.SaveChanges();
                 }
-            }
-        }
-        result = 1;
 
-        return Json(result);
+                else
+                {
+                    if (Eliminar == 1)
+                    {
+                        alumno.Eliminar = true;
+                        _context.Remove(alumno);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            result = 1;
+
+            return Json(result);
+        }
     }
-}

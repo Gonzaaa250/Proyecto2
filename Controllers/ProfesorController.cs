@@ -1,7 +1,14 @@
-using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Proyecto2.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Proyecto2.Data;
 using Proyecto2.Models;
 namespace Proyecto2.Controllers;
 [Authorize]
@@ -16,32 +23,32 @@ public class ProfesorController : Controller
     }
     public IActionResult Index()
     {
-        var profesor = _context.Profesor.ToList();
+        var profesores=_context.Profesor.ToList();
         return View();
     }
-    public JsonResult BuscarProfesor(int ProfesorId = 0)
+    public JsonResult BuscarProfesor( int ProfesorId = 0)
     {
-        var profesor = _context.Profesor.ToList();
-        if (ProfesorId > 0)
+        var profesores=_context.Profesor.ToList();
+        if(ProfesorId >0)
         {
-            profesor = profesor.Where(p => p.ProfesorId == ProfesorId).OrderBy(p => p.Nombre).ToList();
+            profesores = profesores.Where(p => p.ProfesorId == ProfesorId).OrderBy(p => p.NombreP).ToList();
         }
-        return Json(profesor);
+        return Json(profesores);
     }
-    public JsonResult GuardarProfesor(int ProfesorId, string Nombre, string DNI, DateTime FechaNacimiento, string Direccion, string Email)
+    public JsonResult GuardarProfesor( int ProfesorId, string NombreP, string DNI, DateTime FechaNacimiento, string Direccion, string Email)
     {
         bool result = false;
-        if (!string.IsNullOrEmpty(Nombre))
+        if (!string.IsNullOrEmpty(NombreP) && !string.IsNullOrEmpty(DNI))
         {
-            var profesorExistente = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre);
-            if (profesorExistente == null)
+            var profreExistente = _context.Profesor.FirstOrDefault(p => p.NombreP == NombreP);
+            if (profreExistente == null )
             {
                 var guardarprofe = new Profesor
                 {
-                    Nombre = Nombre,
-                    DNI = DNI,
-                    Direccion = Direccion,
+                    NombreP = NombreP,
+                    DNI=DNI,
                     FechaNacimiento = FechaNacimiento,
+                    Direccion = Direccion,
                     Email = Email
                 };
                 _context.Add(guardarprofe);
@@ -50,17 +57,17 @@ public class ProfesorController : Controller
             }
             else
             {
-                var profesoresExistente = _context.Profesor.FirstOrDefault(p => p.Nombre == Nombre && p.ProfesorId != ProfesorId);
-                if (profesoresExistente == null)
+                var profresExistente = _context.Profesor.FirstOrDefault(p => p.NombreP == NombreP && p.ProfesorId != ProfesorId);
+                if(profresExistente == null)
                 {
-                    var editarprofe = _context.Profesor.Find(ProfesorId);
-                    if (editarprofe != null)
+                    var profeeditar = _context.Profesor.Find(ProfesorId);
+                    if (profeeditar != null)
                     {
-                        editarprofe.Nombre = Nombre;
-                        editarprofe.DNI = DNI;
-                        editarprofe.Direccion = Direccion;
-                        editarprofe.FechaNacimiento = FechaNacimiento;
-                        editarprofe.Email = Email;
+                        profeeditar.NombreP = NombreP;
+                        profeeditar.DNI = DNI;
+                        profeeditar.FechaNacimiento = FechaNacimiento;
+                        profeeditar.Direccion = Direccion;
+                        profeeditar.Email = Email;
                         _context.SaveChanges();
                         result = true;
                     }
@@ -69,20 +76,20 @@ public class ProfesorController : Controller
         }
         return Json(result);
     }
-    public JsonResult EliminarProfesor(int ProfesorId, int Eliminar)
+    public JsonResult EliminarProfesor (int ProfesorId, int Eliminar)
     {
-        int result = 0;
+        int result =0;
         var profesor = _context.Profesor.Find(ProfesorId);
         if (profesor != null)
         {
-            if (Eliminar == 0)
+            if(Eliminar == 0)
             {
                 profesor.Eliminar = false;
                 _context.SaveChanges();
             }
             else
             {
-                if (Eliminar == 1)
+                if(Eliminar ==1)
                 {
                     profesor.Eliminar = true;
                     _context.Remove(profesor);
@@ -90,7 +97,7 @@ public class ProfesorController : Controller
                 }
             }
         }
-        result = 1;
+        result =1;
         return Json(result);
     }
 }
