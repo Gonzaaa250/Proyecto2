@@ -10,7 +10,7 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
-    public DbSet<Carrera> Carrera { get; set; }
-    public DbSet<Alumno> Alumno { get; set; }
-    public DbSet<Profesor> Profesor { get; set; }
+    public DbSet<Carrera>? Carrera { get; set; }
+    public DbSet<Alumno>? Alumno { get; set; }
+    public DbSet<Profesor>? Profesor { get; set; }
 }

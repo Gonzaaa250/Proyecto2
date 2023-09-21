@@ -232,10 +232,6 @@ namespace Proyecto2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlumnoId"), 1L, 1);
 
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CarreraId")
                         .HasColumnType("int");
 
@@ -245,11 +241,7 @@ namespace Proyecto2.Migrations
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NombreA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NombreC")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -372,12 +364,17 @@ namespace Proyecto2.Migrations
             modelBuilder.Entity("Proyecto2.Models.Alumno", b =>
                 {
                     b.HasOne("Proyecto2.Models.Carrera", "Carrera")
-                        .WithMany()
+                        .WithMany("Alumno")
                         .HasForeignKey("CarreraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Carrera");
+                });
+
+            modelBuilder.Entity("Proyecto2.Models.Carrera", b =>
+                {
+                    b.Navigation("Alumno");
                 });
 #pragma warning restore 612, 618
         }

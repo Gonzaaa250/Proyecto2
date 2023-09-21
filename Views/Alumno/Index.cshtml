@@ -16,7 +16,7 @@
                     <p>Nombre y Apellido</p>
                     <input name="Nombre" type="text" class="form-control" id="Nombre" autocomplete="off">
                     <p>Fecha Nacimiento</p>
-                    <input name="FechaNacimiento" type="num" class="form-control" id="FechaNacimiento" autocomplete="off">
+                    <input id="FechaNacimiento"  class="form-control type="datetime" name="FechaNacimiento">
                     <p>Carrera</p>
                     @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control borde"})
                 </div>
@@ -38,8 +38,7 @@
         <table class="table table-success table-info table-striped table-bordered">
             <thead>
                 <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
+                <th scope="col">Nombre y Apellido</th>
                 <th scope="col">Fecha Nacimiento</th>
                 <th scope="col">Carrera</th>
                 <th scope="col">#</th>

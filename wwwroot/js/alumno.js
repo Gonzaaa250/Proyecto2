@@ -9,14 +9,15 @@ function BuscarAlumno(){
             $("#tbody-alumno").empty();
             $.each(alumnos, function (Index, alumno){
                 var BotonEliminar= '';
-                var botones ='<button type="button" onclick="BuscarAlumnos(' + alumno.alumnoId + ')" class="btn" role="button" title="Editar"></button>'+
-                    '<button type="button" onclick="EliminarAlumno(' + alumno.alumnoId  + ', 1)" class="btn btn-danger" role="button" title="Eliminar"></button>';
+                var botones ='<button type="button" onclick="BuscarAlumnos(' + alumno.alumnoId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
+                    '<button type="button" onclick="EliminarAlumno(' + alumno.alumnoId  + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
                 console.log(alumno);
+                var fechaNacimiento = new Date(alumno.fechanacimiento);
+                var fechaFormateada = fechaNacimiento.toLocaleDateString(); // Formatea la fecha
                 $("#tbody-alumno").append('<tr class="' + BotonEliminar + '">' 
                 + '<td class="text-center lt">' + alumno.nombre + '</td>' 
-                + '<td class="text-center lt">' + alumno.apellido + '</td>' +
-                '<td class="text-center lt">' + alumno.fechanacimiento + '</td>' + 
-                '<td class="text-center lt">' + alumno.nombreC + '</td>' +
+                +'<td class="text-center lt">' + fechaFormateada + '</td>' + 
+                '<td class="text-center lt">' + alumno.carreraNombre + '</td>' +
                 '<td class="text-center">' + botones + '</td>' + '</tr>');
             });
         },
@@ -44,9 +45,8 @@ function BuscarAlumnos(AlumnoId){
                 let alumno = alumnos[0];
                 $('#Nombre').val(alumno.nombre);
                 $('#AlumnoId').val(alumno.alumnoId);
-                $('#Apellido').val(alumno.apellido);
                 $('#FechaNacimiento').val(alumno.fechanacimiento);
-                $('#NombreC').val(alumno.nombreC).change();
+                $('#Carrera').val(alumno.Carrera);
                 }else{
                     console.log("No se encontro ningun registro");
                     }
@@ -60,12 +60,11 @@ function BuscarAlumnos(AlumnoId){
 function GuardarAlumno(){
     let AlumnoId = $("#AlumnoId").val();
     let Nombre = $("#Nombre").val();
-    let Apellido =$("#Apellido").val();
     let FechaNacimiento = $("#FechaNacimiento").val();
-    let NombreC = $("#NombreC").val();
+    let CarreraId = $("#CarreraId").val();
     $.ajax({
         url: '../../Alumno/GuardarAlumno',
-        data:{AlumnoId:AlumnoId, Nombre: Nombre, Apellido: Apellido, FechaNacimiento: FechaNacimiento, NombreC: NombreC},
+        data:{AlumnoId:AlumnoId, Nombre: Nombre, FechaNacimiento: FechaNacimiento, CarreraId : CarreraId},
         type: 'POST',
         dataType:'json',
         success: function(resultado){
