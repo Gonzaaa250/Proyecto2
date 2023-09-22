@@ -1,25 +1,26 @@
-@model Proyecto2.Models.Profesor;
+@model Proyecto2.Models.Alumno;
 @{
-    ViewData["Title"] = "Profesores";
+    ViewData["Title"]= "Profesores";
 }
-<div class="modal fade" id="ModalProfesor" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@* modal *@
+<div class="modal fade" id="ModalProfesor" tabindex="1" aria-labelledby="exampleModalLaber" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header fondom">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Profesor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <div class="modal-body fondom">
-                <input type="hidden" id="ProdesorId" value="0">
+                <input type="hidden" id="ProfesorId" value="0">
                 <div class="control-label">
                     <p>Nombre y Apellido</p>
-                    <input type="text" class="form-control" id="Nombre" autocomplete="off" name="Nombre">
+                    <input name="Nombre" type="text" class="form-control" id="Nombre" autocomplete="off">
                     <p>DNI</p>
-                    <input type="number" class="form-control" id="DNI" autocomplete="off">
-                    <p>Fecha Nacimiento</p>
-                    <input id="FechaNacimiento" type="datetime" class="form-control"  placeholder="DD/MM/AA" name="FechaNacimiento">
+                    <input name="DNI" type="number" class="form-control" id="DNI" autocomplete="off">
+                    <p>Fecha de Nacimiento</p>
+                    <input id="FechaNacimiento"  class="form-control" type="datetime" placeholder="DD/MM/AA" name="FechaNacimiento">
                     <p>Direccion</p>
-                    <input type="text" class="form-control" id="Direccion" autocomplete="off" name="Direccion">
+                    <input name="Direccion" type="text" class="form-control" id="Direccion" autocomplete="off">
                     <p>Email</p>
                     <input type="email" class="form-control" id="Email" placeholder="EMAIL" autocomplete="off" name="Email">
                 </div>
@@ -32,26 +33,25 @@
     </div>
 </div>
 <h1>Profesores</h1>
+<div class="mb-2">
+    <button type="button" onclick="VaciarFormulario()" class="button-89" role="button" data-bs-toggle="modal"
+    data-bs-target="#ModalProfesor">Nuevo</button>
+</div>
 <div>
-    <div class="mb-2">
-        <button type="button" onclick="VaciarFormulario()" class="button-89" role="button" data-bs-toggle="modal"
-                data-bs-target="#ModalProfesor">Nuevo</button>
-    </div>
-    <div>
-        <table class="table table-success table-info table-striped table-bordered"">
-            <thead>
-                <tr>
+    <table class="table table-success table-info table-striped table-bordered">
+        <thead>
+            <tr>
                 <th scope="col">Nombre y Apellido</th>
                 <th scope="col">DNI</th>
                 <th scope="col">Fecha Nacimiento</th>
                 <th scope="col">Direccion</th>
                 <th scope="col">Email</th>
-                </tr>
-            </thead>
-            <tbody id="tbody-profesor"></tbody>
-        </table>
-    </div>
+            </tr>
+        </thead>
+        <tbody id="tbody-profesor">
+        </tbody>
+    </table>
 </div>
 @section Scripts{
-    <script src="~/js/profesor.js"></script>
+    <script src="~/js/Profesor.js"></script>
 }

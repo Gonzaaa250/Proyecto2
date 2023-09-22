@@ -10,15 +10,16 @@ function BuscarProfesor(){
             $.each(profesores, function(Index, profesor){
                 var BotonEliminar ="";
                 var botones = '<button type="button" onclick="BuscarProfesores(' + profesor.profesorId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
-                '<button type="button" onclick="GuardarProfesor(' + profesor.profesorId + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
+                '<button type="button" onclick="EliminarProfesor(' + profesor.profesorId + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
+                console.log(profesor);
                 let fechas = new Date(profesor.fechaNacimiento);
                 let fechaFormatted = fechas.toLocaleDateString('es-ES');
                 $("#tbody-profesor").append('<tr class="' + BotonEliminar + '</td>'
-                + '<td class="text-center lt"' + profesor.nombre + '</td>'
-                + '<td class="text-center lt"' + profesor.dni + '</td>'
-                + '<td class="text-center lt"' +fechaFormatted + '</td>'
-                + '<td class="text-center lt"' + profesor.direccion + '</td>'
-                + '<td class="text-center lt"' + profesor.email + '</td>'
+                + '<td class="text-center lt">' + profesor.nombre + '</td>'
+                + '<td class="text-center lt">' + profesor.dni + '</td>'
+                + '<td class="text-center lt">' +fechaFormatted + '</td>'
+                + '<td class="text-center lt">' + profesor.direccion + '</td>'
+                + '<td class="text-center lt">' + profesor.email + '</td>'
                 +'<td class="text-center">' + botones + '</td>'+'</tr>')
             });
         },
@@ -48,6 +49,7 @@ function BuscarProfesores(){
                 $("#Nombre").val(profesor.nombre);
                 $("#ProfesorId").val(profesor.profesorId);
                 $("#DNI").val(profesor.dni);
+                $("#FechaNacimiento").val(profesor.fechaNacimiento)
                 $("#Direccion").val(profesor.direccion);
                 $("#Email").val(profesor.email);
 
@@ -86,7 +88,7 @@ function GuardarProfesor(){
     })
 }
 //ELIMINAR
-function EliinarProfesor(ProfesorId, Eliminar){
+function EliminarProfesor(ProfesorId, Eliminar){
     $.ajax({
         url:'../../Profesor/EliminarProfesor',
         data:{ProfesorId: ProfesorId, Eliminar: Eliminar},
