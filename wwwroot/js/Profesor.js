@@ -11,11 +11,11 @@ function BuscarProfesor(){
                 var BotonEliminar ="";
                 var botones = '<button type="button" onclick="BuscarProfesores(' + profesor.profesorId + ')" class="button-81" role="button style="margin-right: 5%;" title="Editar">Editar</button>'+
                 '<button type="button" onclick="EliminarProfesor(' + profesor.profesorId + ', 1)" class="button-82" role="button" style="margin-left: 5%;" title="Eliminar">Eliminar</button>';
-                console.log(profesor);
+                console.log(profesores);
                 let fechas = new Date(profesor.fechaNacimiento);
                 let fechaFormatted = fechas.toLocaleDateString('es-ES');
                 $("#tbody-profesor").append('<tr class="' + BotonEliminar + '</td>'
-                + '<td class="text-center lt">' + profesor.nombre + '</td>'
+                + '<td class="text-center lt">' + profesor.nombre + '</td>' 
                 + '<td class="text-center lt">' + profesor.dni + '</td>'
                 + '<td class="text-center lt">' +fechaFormatted + '</td>'
                 + '<td class="text-center lt">' + profesor.direccion + '</td>'
@@ -37,7 +37,7 @@ function VaciarFormulario() {
     $("#Email").val('');
 }
 //EDITAR
-function BuscarProfesores(){
+function BuscarProfesores(ProfesorId){
     $.ajax({
         url: '../../Profesor/BuscarProfesor',
         data: {profesorId : ProfesorId},

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3mIN8mGibNF0irNGIfeqQGXVNCO7ITsiJAD5BWXrAW7CIICiFOvgTGDA2LWc0ghmyzGGsweUs13NLNaVpEV6mQ==",
+  "dgSpecHash": "/QBt+cDExJds7gyc17yljOin7SdmaXAInXZsPZTXVjSldj1bxxbWz0ANh8q1cSsh2zElAm7zXGTDzy0VRJre8A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gonza\\Desktop\\Proyecto2\\Proyecto2.csproj",
+  "projectFilePath": "C:\\Users\\gonza\\Desktop\\app\\Proyecto2\\Proyecto2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gonza\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\gonza\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
