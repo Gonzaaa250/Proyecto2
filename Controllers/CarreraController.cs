@@ -21,13 +21,18 @@ public class CarreraController : Controller
     }
     public JsonResult BuscarCarrera(int CarreraId = 0)
     {
-        var carrera = _context.Carrera.ToList();
+        var carreras = _context.Carrera.ToList();
+    
         if (CarreraId > 0)
-        {
-            carrera = carrera.Where(c => c.CarreraId == CarreraId).OrderBy(c => c.NombreC).ToList();
-        }
-        return Json(carrera);
+            {
+                carreras = carreras.Where(c => c.CarreraId == CarreraId).ToList();
+            }
+
+        carreras = carreras.OrderBy(c => c.NombreC).ToList();
+    
+        return Json(carreras);
     }
+
     public JsonResult GuardarCarrera(int CarreraId, string NombreC, int Duracion)
     {
         bool result = false;

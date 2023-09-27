@@ -30,29 +30,39 @@ public class AlumnoController : Controller
     }
     public JsonResult BuscarAlumno(int AlumnoId = 0)
     {
-        var alumno = _context.Alumno.Include(a => a.Carrera).ToList();
+        var alumnos = _context.Alumno.Include(a => a.Carrera).ToList();
+
         if (AlumnoId > 0)
         {
-            alumno = alumno.Where(a => a.AlumnoId == AlumnoId).OrderBy(a => a.Nombre).ToList();
+            alumnos = alumnos.Where(a => a.AlumnoId == AlumnoId).ToList();
         }
+
+        alumnos = alumnos.OrderBy(a => a.Carrera.NombreC).ThenBy(a => a.Nombre).ToList();
+
         List<ListadoAlumno> alumnosMostrar = new List<ListadoAlumno>();
-        foreach (var alumnos in alumno)
+        foreach (var alumno in alumnos)
         {
             var alumnoMostrar = new ListadoAlumno
             {
-                AlumnoId = alumnos.AlumnoId,
-                Nombre = alumnos.Nombre,
-                FechaNacimiento = alumnos.FechaNacimiento,
-                CarreraNombre = alumnos.Carrera.NombreC
+                AlumnoId = alumno.AlumnoId,
+                Nombre = alumno.Nombre,
+                FechaNacimiento = alumno.FechaNacimiento,
+                Direccion = alumno.Direccion,
+                DNI = alumno.DNI,
+                Email = alumno.Email,
+                CarreraNombre = alumno.Carrera.NombreC
             };
             alumnosMostrar.Add(alumnoMostrar);
         }
+
         return Json(alumnosMostrar);
     }
-    public JsonResult GuardarAlumno(int AlumnoId, string Nombre, DateTime FechaNacimiento, int CarreraId)
+
+
+    public JsonResult GuardarAlumno(int AlumnoId, string Nombre, DateTime FechaNacimiento, string DNI, string Direccion, string Email, int CarreraId)
     {
         bool result = false;
-        if (!string.IsNullOrEmpty(Nombre))
+        if (!string.IsNullOrEmpty(Nombre) && !string.IsNullOrEmpty(DNI))
         {
             if (AlumnoId == 0)
             {
@@ -66,6 +76,9 @@ public class AlumnoController : Controller
                         {
                             Nombre = Nombre,
                             FechaNacimiento = FechaNacimiento,
+                            Direccion = Direccion,
+                            DNI = DNI,
+                            Email = Email,
                             Carrera = carrera
                         };
                         _context.Add(alumnoguardar);
@@ -84,6 +97,9 @@ public class AlumnoController : Controller
                     {
                         actualizaralumno.Nombre = Nombre;
                         actualizaralumno.FechaNacimiento = FechaNacimiento;
+                        actualizaralumno.Direccion = Direccion;
+                        actualizaralumno.DNI = DNI;
+                        actualizaralumno.Email = Email;
                         actualizaralumno.Carrera = _context.Carrera.FirstOrDefault(c => c.CarreraId == CarreraId);
                         _context.SaveChanges();
                         result = true;
@@ -94,28 +110,28 @@ public class AlumnoController : Controller
 
         return Json(new { success = result }); // Devuelve un resultado JSON indicando si la operación fue exitosa o no.
     }
-public JsonResult EliminarAlumno(int AlumnoId, int Eliminar)
-{
-    int result = 0;
-    var Alumno1 = _context.Alumno.Find(AlumnoId);
-
-    if (Alumno1 != null)
+    public JsonResult EliminarAlumno(int AlumnoId, int Eliminar)
     {
-        if (Eliminar == 0)
+        int result = 0;
+        var Alumno1 = _context.Alumno.Find(AlumnoId);
+
+        if (Alumno1 != null)
         {
-            Alumno1.Eliminar = false;
-            _context.SaveChanges();
-        }
-        else if (Eliminar == 1) 
-        {
-            _context.Remove(Alumno1);
-            _context.SaveChanges();
+            if (Eliminar == 0)
+            {
+                Alumno1.Eliminar = false;
+                _context.SaveChanges();
+            }
+            else if (Eliminar == 1)
+            {
+                _context.Remove(Alumno1);
+                _context.SaveChanges();
+            }
+
+            result = 1;
         }
 
-        result = 1;
+        return Json(result);
     }
-
-    return Json(result);
-}
 
 }

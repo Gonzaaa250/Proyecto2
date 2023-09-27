@@ -1,11 +1,11 @@
 @model Proyecto2.Models.Alumno;
 @{
-    ViewData["Title"] = "Alumnos";
+    ViewData["Title"] = "Estudiantes";
 }
 @* modal *@
 <div class="modal fade" id="ModalAlumno" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content"> 
+        <div class="modal-content">
             <div class="modal-header fondom">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Alumno</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -16,32 +16,43 @@
                     <p>Nombre y Apellido</p>
                     <input name="Nombre" type="text" class="form-control" id="Nombre" autocomplete="off">
                     <p>Fecha Nacimiento</p>
-                    <input id="FechaNacimiento"  class="form-control" type="datetime" placeholder="DD/MM/AA" name="FechaNacimiento">
+                    <input id="FechaNacimiento" class="form-control" type="datetime" placeholder="DD/MM/AA"
+                        name="FechaNacimiento">
+                    <p>DNI</p>
+                    <input type="number" name="DNI" id="DNI" class="form-control" autocomplete="off">
+                    <p>Direccion</p>
+                    <input type="text" name="Direccion" id="Direccion" class="form-control" autocomplete="off">
+                    <p>Email</p>
+                    <input type="email" class="form-control" id="Email" placeholder="EMAIL" autocomplete="off" name="Email">
                     <p>Carrera</p>
-                    @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control borde"})
+                    @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control borde" })
                 </div>
                 <div class="modal-footer" style="margin-right: 30%;">
                     <button type="button" class="button-77" role="button" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" style="margin-left: 3%;" onclick="GuardarAlumno()" class="button-78" role="button">Guardar</button>
+                    <button type="button" style="margin-left: 3%;" onclick="GuardarAlumno()" class="button-78"
+                        role="button">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<h1>Alumnos</h1>
+<h1>Estudiantes</h1>
 <div>
     <div class="mb-2">
         <button type="button" onclick="VaciarFormulario()" class="button-89" role="button" data-bs-toggle="modal"
-                data-bs-target="#ModalAlumno">Nuevo</button>
+            data-bs-target="#ModalAlumno">Nuevo</button>
     </div>
     <div>
         <table class="table table-success table-info table-striped table-bordered">
             <thead>
                 <tr>
-                <th scope="col">Nombre y Apellido</th>
-                <th scope="col">Fecha Nacimiento</th>
-                <th scope="col">Carrera</th>
-                <th scope="col">#</th>
+                    <th scope="col">Nombre y Apellido</th>
+                    <th scope="col">Fecha Nacimiento</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Carrera</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody id="tbody-alumno"></tbody>
@@ -49,5 +60,5 @@
     </div>
 </div>
 @section Scripts{
-<script src="~/js/alumno.js"></script>
+    <script src="~/js/alumno.js"></script>
 }
