@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Dynamic;
 using Proyecto2.Data;
 using Proyecto2.Models;
 namespace Proyecto2.Controllers;
@@ -75,13 +76,33 @@ public class TareaController : ContentResult
                         actualizartarea.Descripcion = Descripcion;
                         actualizartarea.FechaCreacion = FechaCreacion;
                         actualizartarea.FechaVencimiento = FechaVencimiento;
-                        actualizartarea.Asignatura = _context.Asignatura.FirstOrDefault(a => a.AsignaturaId == Asignaturaid);
+                        actualizartarea.Asignatura = _context.Asignatura.FirstOrDefault(a => a.AsignaturaId == AsignaturaId);
 
                         _context.SaveChanges();
                         result = true;
                     }
                 }
             }
+        }
+        return Json(result);
+    }
+    public JsonResult EliminarTarea(int TareaId, int Eliminar)
+    {
+        int result =0;
+        var tarea = _context.Tarea.Find(TareaId);
+        if(tarea != null)
+        {
+            if(Eliminar ==0)
+            {
+                tarea.Eliminar =false;
+                _context.SaveChanges();
+            }
+            else if(Eliminar ==1)
+            {
+                _context.Remove(tarea);
+                _context.SaveChanges();
+            }
+            result=1;
         }
         return Json(result);
     }

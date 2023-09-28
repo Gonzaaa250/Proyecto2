@@ -10,7 +10,7 @@ function BuscarTarea(){
             $.each(tareas, function(index, tarea){
                 var BotonEliminar= "";
                 var botones = '<button type="button" onclick="EditarTareas(' + tarea.tareaId + ')" class="btn btn-primary"  title="Editar">Editar</button>'+
-                '<button type="button" onclick="EliminarCarrera(' + tarea.tareaId  + ', 1)" class="btn btn-danger"  title="Eliminar">Eliminar</button>';
+                '<button type="button" onclick="EliminarTarea(' + tarea.tareaId  + ', 1)" class="btn btn-danger"  title="Eliminar">Eliminar</button>';
                 $("#tbody-tarea").append('<tr class"' + BotonEliminar+'">'
                 + '<td class="text-center">'+ tarea.titulo + '</td>'
                 + '<td class="text-center">'+ tarea.descripcion + '</td>'
@@ -33,10 +33,10 @@ function VaciarFormulario(){
     $("#FechaVencimiento").val("");
 }
 //Editar
-function EditarTareas(tareaId){
+function EditarTareas(TareaId){
     $.ajax({
         url: '../../Tarea/BuscarTarea',
-        data: {tareaId : tareaId},
+        data: {TareaId : TareaId},
         type: 'GET',
         dataType: 'json',
         success: function (tareas){
@@ -62,4 +62,39 @@ function GuardarTarea(){
     let FechaCreacion=$("#FechaCreacion").val();
     let FechaVencimiento= $("#FechaVencimiento").val();
     let Asignaturas = $("#Asignaturas").val();
+    $.ajax({
+        url:'../../Tarea/GuardarTarea',
+        data:{ TareaId: TareaId, Titulo: Titulo, Descripcion: Descripcion, FechaCreacion: FechaCreacion, FechaVencimiento: FechaVencimiento, Asignaturas: Asignaturas},
+        dataType: 'POST',
+        success: function(resultado){
+            if(resultado){
+                $("#ModalTarea").modal("hide");
+                BuscarTarea();
+            }
+            else{
+                alert("Ya existe esta Tarea")
+            }
+        },
+        error : function(xhr,status){
+            alert("No se pudo guardar la tarea")
+        },
+    })
+}
+function EliminarTarea(TareaId, Eliminar)
+{
+    $,ajax({
+        url: "../../Tarea/EliminarTarea",
+        data:{TareaId: TareaId, Eliminar: Eliminar},
+        type: 'POST',
+        dataType:"json",
+        success: function(resultado){
+            if(resultado){
+                BuscarTarea();
+                alert("Tarea Eliminado")
+            }
+        },
+        error: function(xhr, status){
+            alert("No se pudo eliminar")
+        }
+    })
 }
