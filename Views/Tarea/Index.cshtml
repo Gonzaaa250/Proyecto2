@@ -1,0 +1,60 @@
+@model Proyecto2.Models.Tarea;
+@{
+    ViewData["Title"] = "Tarea";
+} 
+@* modal *@
+<div class="modal fade" id="ModalTarea" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="TareaId" value="0">
+                <div class="control-label">
+                    <p>Titulo</p>
+                    <input type="text" name="Titulo" id="Titulo" class="form-control" autocomplete="off">
+                    <p>Descripcion</p>
+                    <input type="text" name="Descripcion" id="Descripcion" class="form-control" autocomplete="off">
+                    <p>Fecha Creacion</p>
+                    <input type="datetime" name="FechaCreacion" id="FechaCreacion" class="form-control" autocomplete="off">
+                    <p>Fecha Vencimiento</p>
+                    <input type="datetime" name="FechaVencimiento" id="FechaVencimiento" class="form-control" autocomplete="off">
+                    <p>Asignatura</p>
+                    @Html.DropDownList("AsignaturaId", null, htmlAttributes: new{@class= "form-control borde"});
+                </div>
+                <div class="modal-footer" style="margin-right: 30%;">
+                    <button type="button" class="button-77" role="button" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" style="margin-left: 3%;" onclick="GuardarTarea()" class="button-78"
+                        role="button">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Tarea</h1>
+<div class="mb-2">
+     <button type="button" onclick="VaciarFormulario()"  class="button-89" role="button" data-bs-toggle="modal"
+                data-bs-target="#ModalTarea">Nuevo</button>
+</div>
+<div>
+    <table class="table table-success table-info table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Titulo</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Asignatura</th>
+                <th scope="col">Fecha de Creacion</th>
+                <th scope="col">Fecha de Vencimiento</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="tbody-tarea"></tbody>
+    </table>
+</div>
+    @section Scripts{
+        <script src="~/js/tareas-1.0.0.js"></script>
+    }
+
+</body>

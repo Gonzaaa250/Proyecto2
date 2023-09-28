@@ -10,4 +10,8 @@ public class Profesor{
     public string Direccion {get; set;}
     public string Email {get; set;}
     public bool Eliminar {get; set;}
+    public int Asignaturaid {get; set;}
+    public virtual Asignatura? Asignatura {get; set;}
+    public virtual ICollection<Tarea> Tarea {get; set;}
+    public virtual ICollection <ProfesorAsignatura> ProfesorAsignatura {get; set;}
 }

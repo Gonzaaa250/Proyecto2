@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto2.Data;
 
@@ -11,9 +12,10 @@ using Proyecto2.Data;
 namespace Proyecto2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230927231057_Nuevas_Tablas")]
+    partial class Nuevas_Tablas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,7 +323,7 @@ namespace Proyecto2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfesorId"), 1L, 1);
 
-                    b.Property<int>("Asignaturaid")
+                    b.Property<int?>("AsignaturaId")
                         .HasColumnType("int");
 
                     b.Property<string>("DNI")
@@ -348,7 +350,7 @@ namespace Proyecto2.Migrations
 
                     b.HasKey("ProfesorId");
 
-                    b.HasIndex("Asignaturaid");
+                    b.HasIndex("AsignaturaId");
 
                     b.ToTable("Profesor");
                 });
@@ -373,7 +375,7 @@ namespace Proyecto2.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("profesorAsignatura");
+                    b.ToTable("ProfesorAsignatura");
                 });
 
             modelBuilder.Entity("Proyecto2.Models.Tarea", b =>
@@ -491,9 +493,7 @@ namespace Proyecto2.Migrations
                 {
                     b.HasOne("Proyecto2.Models.Asignatura", "Asignatura")
                         .WithMany()
-                        .HasForeignKey("Asignaturaid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AsignaturaId");
 
                     b.Navigation("Asignatura");
                 });

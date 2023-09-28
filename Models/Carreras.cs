@@ -10,4 +10,5 @@ public class Carrera{
     public int Duracion {get; set;}
     public bool Eliminar {get; set;}
     public virtual ICollection <Alumno> Alumno {get; set;}
+    public virtual ICollection<Asignatura> Asignatura {get; set;}
 }
