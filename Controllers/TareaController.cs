@@ -13,7 +13,7 @@ using Proyecto2.Data;
 using Proyecto2.Models;
 namespace Proyecto2.Controllers;
 [Authorize]
-public class TareaController : ContentResult
+public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
     private readonly ApplicationDbContext _context;
