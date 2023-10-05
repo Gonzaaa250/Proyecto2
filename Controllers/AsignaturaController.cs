@@ -19,12 +19,12 @@ public class AsignaturaController : Controller
     public AsignaturaController(ILogger<AsignaturaController> logger, ApplicationDbContext context)
     {
         _logger = logger;
-        _context = _context;
+        _context = context;
     }
     public IActionResult Index()
     {
-        var Carrera = _context.Carrera?.ToList();
-        ViewBag.CarreraId = new SelectList(Carrera, "CarreraId", "NombreC");
+        var carreras = _context.Carrera?.ToList();
+        ViewBag.CarreraId = new SelectList(carreras, "CarreraId", "NombreC");
         return View();
     }
     public JsonResult BuscarAsignatura(int AsignaturaId = 0)

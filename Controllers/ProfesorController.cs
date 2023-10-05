@@ -21,11 +21,11 @@ public class ProfesorController : Controller
         _logger = logger;
         _context = context;
     }
-    public IActionResult Index()
-    {
-        var profesores = _context.Profesor.ToList();
-        return View();
-    }
+public IActionResult Index()
+{
+    var profesor = _context.Profesor.ToList();
+    return View();
+}
     public JsonResult BuscarProfesor(int ProfesorId = 0)
     {
         var profesores = _context.Profesor.ToList();
